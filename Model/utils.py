@@ -1,7 +1,7 @@
 import json
 
 
-def load_keys(file = '../keys.json'):
+def load_keys(file = '../Icons/keys.json'):
     """
     loads in the notebook keys dictionary
     """
@@ -10,7 +10,7 @@ def load_keys(file = '../keys.json'):
         key = json.load(f)
     return key
 
-def load_status(file = '../status.json'):
+def load_status(file = '../Icons/status.json'):
     """
     loads in the notebook status dictionary
     """

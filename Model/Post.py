@@ -40,9 +40,9 @@ class Post:
             self.subnote       = self.subnote.split(';')
         self.subnote           = [str(i).strip() for i in self.subnote]
         
-        self.date              = datetime.now().strftime("%d %B %Y")
+        #self.date              = datetime.now().strftime("%d %B %Y")
         
-        self.time              = datetime.now().strftime("%H:%M:%S")
+        #self.time              = datetime.now().strftime("%H:%M:%S")
         
         assert self.entry_type in self.key.keys() or self.entry_type in self.key.values(), f"Entry Type: {self.entry_type} is not a valid journal entry. Valid entry types include:\n {self.key_format}" 
         #assert self.entry_status in self.status.keys() or self.entry_status in self.status.values(), f"Status Type: {self.entry_status} is not a valid status. Valid statuses include:\n {self.status_format}" 
@@ -51,8 +51,8 @@ class Post:
     def write_post(self):
         notebook_entry = {
             'ID'        : t.time(),
-            'date'      : self.date,
-            'time'      : self.time, 
+            'date'      : datetime.now().strftime("%d %B %Y"),
+            'time'      : datetime.now().strftime("%H:%M:%S"), 
             'entry_type': self.entry_type,
             'entry'     : self.entry,
             'subnote'   : self.subnote,
@@ -60,15 +60,31 @@ class Post:
 
         }
         
-        with open('../notebook.json', 'a') as f:
+        with open('../Data/notebook.json', 'a') as f:
             json.dump(notebook_entry, f)
             f.write(os.linesep)
     
-    
+    def first_post(self):
+        notebook_entry = {
+            'ID'        : t.time(),
+            'date'      : datetime.now().strftime("%d %B %Y"),
+            'time'      : datetime.now().strftime("%H:%M:%S"), 
+            'entry_type': '.',
+            'entry'     : 'Welcome to Digital Bullet Journal!',
+            'subnote'   : ['Tutorial and introduction coming soon!','Come back soon!'],
+            'tags'      : ['dibujo']
+
+        }
+        
+        with open('../Data/notebook.json', 'a') as f:
+            json.dump(notebook_entry, f)
+            f.write(os.linesep)
     
 if __name__ == "__main__":
     # here is where I would write a bunch of helper functions
     post = Post()
+    if os.path.exists("../Data/notebook.json") == False:
+        post.first_post()
     post.entry = input('Note Entry: ')
     post.entry_type=input('Entry Type: ')
     # write a helper for when the user inputs 'options' to list the entry options
