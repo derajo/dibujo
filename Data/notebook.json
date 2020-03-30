@@ -1,2 +1,9 @@
 {"ID": 1585185286.930023, "date": "25 March 2020", "time": "21:14:46", "entry_type": ".", "entry": "Welcome to Digital Bullet Journal!", "subnote": ["Tutorial and introduction coming soon!", "Come back soon!"], "tags": ["dibujo"]}
 {"ID": 1585185349.759552, "date": "25 March 2020", "time": "21:15:49", "entry_type": ".", "entry": "Hello World!", "subnote": ["first note testing out Post.py"], "tags": ["test", "dibujo"]}
+{"ID": 1585608955.327053, "date": "30 March 2020", "time": "18:55:55", "entry_type": ".", "entry": "Here is another note with a specific word: dog", "subnote": [""], "tags": ["filter_testing"]}
+{"ID": 1585608981.6953652, "date": "30 March 2020", "time": "18:56:21", "entry_type": "#", "entry": "Take out trash tonight", "subnote": [""], "tags": ["filter_testing"]}
+{"ID": 1585609036.157962, "date": "30 March 2020", "time": "18:57:16", "entry_type": "&", "entry": "Doctor's appointment at 8am", "subnote": [""], "tags": ["filter_testing"]}
+{"ID": 1585609077.552882, "date": "30 March 2020", "time": "18:57:57", "entry_type": "&", "entry": "Eye doctor's appointment at 9am", "subnote": [""], "tags": ["filter_testing"]}
+{"ID": 1585609182.043228, "date": "30 March 2020", "time": "18:59:42", "entry_type": "@", "entry": "Third Eye Blind concert!", "subnote": [""], "tags": ["filter_testing"]}
+{"ID": 1585611796.89809, "date": "30 March 2020", "time": "19:43:16", "entry_type": "^", "entry": "Develop note taking habit", "subnote": [""], "tags": ["filter_testing"]}
+{"ID": 1585611847.93101, "date": "30 March 2020", "time": "19:44:07", "entry_type": ".", "entry": "Another test note with specific word: Dog", "subnote": [""], "tags": ["filter_testing2"]}
