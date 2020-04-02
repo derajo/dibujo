@@ -11,16 +11,17 @@ class Post:
     Posts a new note to your notebook
 
     """
-
+    # initialize entry types
     entry_type= '.'
     entry=''
     tags = ''
     subnote = ['']
     entry_status=''
     
+    # load the allowed keys to ensure they are denoted correctly
     key = load_keys()
     key_format = valid_entry_type_options(key)
-    status = load_status() # status's will be handled by user interaction
+    status = load_status() # status's will be handled by user interaction; unused for right now
     #status_format = valid_entry_status_options(status)
     
 
@@ -40,10 +41,7 @@ class Post:
             self.subnote       = self.subnote.split(';')
         self.subnote           = [str(i).strip() for i in self.subnote]
         
-        #self.date              = datetime.now().strftime("%d %B %Y")
-        
-        #self.time              = datetime.now().strftime("%H:%M:%S")
-        
+        # ensure that the entry_Type is the in the available keys
         assert self.entry_type in self.key.keys() or self.entry_type in self.key.values(), f"Entry Type: {self.entry_type} is not a valid journal entry. Valid entry types include:\n {self.key_format}" 
         #assert self.entry_status in self.status.keys() or self.entry_status in self.status.values(), f"Status Type: {self.entry_status} is not a valid status. Valid statuses include:\n {self.status_format}" 
 
@@ -65,6 +63,7 @@ class Post:
             f.write(os.linesep)
     
     def first_post(self):
+        # initialize the first note of a users notebook
         notebook_entry = {
             'ID'        : t.time(),
             'date'      : datetime.now().strftime("%d %B %Y"),
@@ -81,7 +80,7 @@ class Post:
             f.write(os.linesep)
     
 if __name__ == "__main__":
-    # here is where I would write a bunch of helper functions
+    
     post = Post()
     if os.path.exists("../Data/notebook.json") == False:
         post.first_post()

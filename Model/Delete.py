@@ -4,12 +4,15 @@ import os
 import time as t
 
 class Delete:
+    """
+    Deletes a note given its ID
+    """
     ID = float()
     notebook = Get().notebook()
     def delete_entry(self):
         # archive the deleted note in the note archives
         deleted_note = [note for note in self.notebook if note['ID'] == self.ID]
-        if len(deleted_note) > 0:
+        if len(deleted_note) > 0: 
             with open(f'../Data/archived_notes.json', 'a') as f:
                 json.dump({t.time():deleted_note[0]}, f)
                 f.write(os.linesep)

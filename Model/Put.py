@@ -4,6 +4,10 @@ import json
 import os
 
 class Put:
+    """
+    Update a note entry
+    """
+    
     ID = float()
     notebook = Get().notebook()
     note = [note for note in self.notebook if note['ID'] == self.ID]
