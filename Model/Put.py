@@ -36,7 +36,7 @@ class Put:
 
         }
         
-        with open('../Data/notebook.json', 'a') as f:
+        with open('Data/notebook.json', 'a') as f:
             json.dump(edited_notebook_entry, f)
             f.write(os.linesep)
     

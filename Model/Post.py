@@ -58,7 +58,7 @@ class Post:
 
         }
         
-        with open('../Data/notebook.json', 'a') as f:
+        with open('Data/notebook.json', 'a') as f:
             json.dump(notebook_entry, f)
             f.write(os.linesep)
     
@@ -75,14 +75,14 @@ class Post:
 
         }
         
-        with open('../Data/notebook.json', 'a') as f:
+        with open('Data/notebook.json', 'a') as f:
             json.dump(notebook_entry, f)
             f.write(os.linesep)
     
 if __name__ == "__main__":
     
     post = Post()
-    if os.path.exists("../Data/notebook.json") == False:
+    if os.path.exists("Data/notebook.json") == False:
         post.first_post()
     post.entry = input('Note Entry: ')
     post.entry_type=input('Entry Type: ')
