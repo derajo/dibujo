@@ -1,6 +1,6 @@
 import json
 from collections import defaultdict
-from utils import load_keys
+from Model.utils import load_keys
 import time 
 import datetime 
 
@@ -16,10 +16,10 @@ class Get:
             return [json.loads(i) for i in open(file,'r').readlines()]
     
     
-    def group_by(key):
+    def group_by(self,key):
         
         grouped_notebook = defaultdict(list)
-        for note in notebook: #self.notebook:
+        for note in sorted(self.load_notebook(), key= lambda x:x['ID']):
             grouped_notebook[note[key]] += [note]
         return dict(grouped_notebook)
     
@@ -28,8 +28,7 @@ class Get:
         def format_note(note):
             return  f"{note['entry_type']}  {note['entry']}\n"
 
-        notebook = sorted(self.notebook, key= lambda x:x['ID'])
-        for date,note in group_by('date').items():
+        for date,note in self.group_by('date').items():
 
             print_notebook+=f"{date}\n"
             for i in note:
@@ -39,12 +38,12 @@ class Get:
     # filter functions here
     
     # Date Filter
-    def date_range_filter(begin_date='',end_date=''):
+    def date_range_filter(self,begin_date='',end_date=''):
         """
         Filters the notebook based on a date range
         """
         if begin_date == '' and end_date == '':
-            return notebook
+            return self.notebook
         else:
 
             begin_date = time.mktime(datetime.datetime.strptime(begin_date,"%m/%d/%Y").timetuple())
@@ -56,8 +55,8 @@ class Get:
     # time filter
 
     # entry_type
-    def entry_type_filter(entry_type = list(load_keys().keys())):
-        return [i for i in notebook if i['entry_type'] in entry_type]
+    def entry_type_filter(self,entry_type = list(load_keys().keys())):
+        return [i for i in self.notebook if i['entry_type'] in entry_type]
 
     # entry
 
@@ -65,7 +64,7 @@ class Get:
 
     #tags
 
-if __name__ == "__main__":
-    get = Get()
-    notebook = get.load_notebook()
+#if __name__ == "__main__":
+    #get = Get()
+    #notebook = get.load_notebook()
     #print(get.display())
