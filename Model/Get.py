@@ -1,5 +1,10 @@
 import json
 from collections import defaultdict
+from utils import load_keys
+import time 
+import datetime 
+
+
 
 class Get:
     """
@@ -7,7 +12,7 @@ class Get:
     -- Eventually filters will be here to extract all notes that adhere to the specified filter
     """
     notebook =[]
-    def load_notebook(self,file = '../Data/notebook.json'):
+    def load_notebook(self,file = 'Data/notebook.json'):
             return [json.loads(i) for i in open(file,'r').readlines()]
     
     
@@ -32,6 +37,33 @@ class Get:
             print_notebook+='\n'
         return print_notebook
     # filter functions here
+    
+    # Date Filter
+    def date_range_filter(begin_date='',end_date=''):
+        """
+        Filters the notebook based on a date range
+        """
+        if begin_date == '' and end_date == '':
+            return notebook
+        else:
+
+            begin_date = time.mktime(datetime.datetime.strptime(begin_date,"%m/%d/%Y").timetuple())
+            end_date = time.mktime((datetime.datetime.strptime(end_date,"%m/%d/%Y")+datetime.timedelta(days=1)).timetuple())
+
+            return [i for i in notebook if i['ID'] >= timestamp_range[0] and i['ID'] < timestamp_range[1]]
+
+
+    # time filter
+
+    # entry_type
+    def entry_type_filter(entry_type = list(load_keys().keys())):
+        return [i for i in notebook if i['entry_type'] in entry_type]
+
+    # entry
+
+    # subnote?
+
+    #tags
 
 if __name__ == "__main__":
     get = Get()
