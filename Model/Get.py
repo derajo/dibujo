@@ -68,4 +68,4 @@ class Get:
 if __name__ == "__main__":
     get = Get()
     notebook = get.load_notebook()
-    print(get.display())
+    #print(get.display())
