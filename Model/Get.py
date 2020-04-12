@@ -1,6 +1,6 @@
 import json
 from collections import defaultdict
-from Model.utils import load_keys
+from utils import load_keys
 import time 
 import datetime 
 
@@ -8,18 +8,17 @@ import datetime
 
 class Get:
     """
-    Returns the notebook.
-    -- Eventually filters will be here to extract all notes that adhere to the specified filter
+    Returns the notebook with any user designated filters
     """
     notebook =[]
-    def load_notebook(self,file = 'Data/notebook.json'):
+    def load_notebook(self,file = '../Data/notebook.json'):
             return [json.loads(i) for i in open(file,'r').readlines()]
     
     
     def group_by(self,key):
         
         grouped_notebook = defaultdict(list)
-        for note in sorted(self.load_notebook(), key= lambda x:x['ID']):
+        for note in sorted(self.load_notebook(), key= lambda x:x['ID']): #self.notebook:
             grouped_notebook[note[key]] += [note]
         return dict(grouped_notebook)
     
@@ -49,7 +48,7 @@ class Get:
             begin_date = time.mktime(datetime.datetime.strptime(begin_date,"%m/%d/%Y").timetuple())
             end_date = time.mktime((datetime.datetime.strptime(end_date,"%m/%d/%Y")+datetime.timedelta(days=1)).timetuple())
 
-            return [i for i in notebook if i['ID'] >= timestamp_range[0] and i['ID'] < timestamp_range[1]]
+            return [i for i in self.notebook if i['ID'] >= timestamp_range[0] and i['ID'] < timestamp_range[1]]
 
 
     # time filter
@@ -59,12 +58,35 @@ class Get:
         return [i for i in self.notebook if i['entry_type'] in entry_type]
 
     # entry
-
+    def entry_text_filter(self,search_query = ''):
+        """
+        Simple search feature tokenizing the search query and checking if any of the words are in any entries
+        """
+        
+        if search_query == '':
+            return self.notebook
+        else:
+            search_terms = search_query.split()
+            notebook_results = []  
+            for term in search_terms:
+                notebook_results+=[i for i in self.notebook if term.lower() in i['entry'].lower() and i not in notebook_results]                
+            return notebook_results
+    
     # subnote?
 
     #tags
+    def tag_filter(self,tags = ['']):
+        if tags == ['']:
+            return self.notebook
+        else:
+            notebook_results = []
+            for tag in tags:
+                notebook_results+=[i for i in self.notebook if tag in i['tags'] and i not in notebook_results]                
+            return notebook_results
+    
 
-#if __name__ == "__main__":
-    #get = Get()
-    #notebook = get.load_notebook()
-    #print(get.display())
+# if __name__ == "__main__":
+#     get = Get()
+#     get.notebook = get.load_notebook()
+#     get.notebook = get.tag_filter(['test','filter_testing2'])
+#     get.notebook = get.entry_text_filter('dog')
